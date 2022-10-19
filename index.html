@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <style>
+        body{
+            min-width: 400px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container text-center">
+
+        <div class="row text-center align-items-start">
+            <div class="col mt-2">
+                <p class="h6 text-center">Found</p>
+                <div class="d-flex justify-content-center">
+                    <button class="btn primary" id="foundMinusBtn">-</button>
+                    <p class="user-select-none text-center fs-3 mb-0" id="foundAmount">0</p>
+                    <button class="btn primary" id="foundPlusBtn">+</button>
+                </div>
+            </div>
+
+            <div class="col mt-2">
+                <p class="h6 text-center">Not Found</p>
+                <div class="d-flex justify-content-center">
+                    <button class="btn primary" id="notFoundMinusBtn">-</button>
+                    <p class="user-select-none text-center fs-3 mb-0" id="notFoundAmount">0</p>
+                    <button class="btn primary" id="notFoundPlusBtn" >+</button>
+                </div>
+            </div>
+
+            <div class="col mt-2">
+                <p class="h6 text-center">Archive</p>
+                <div class="d-flex justify-content-center">
+                    <button class="btn primary" id="archiveMinusBtn">-</button>
+                    <p class="user-select-none text-center fs-3 mb-0" id="archiveAmount">0</p>
+                    <button class="btn primary" id="archivePlusBtn">+</button>
+                </div>
+            </div>
+
+            <div class="col mt-2">
+                <p class="h6 text-center">Total Completed</p>
+                <p class="text-center fs-3 mb-0" id="totalCompleted">0</p>
+            </div>
+        </div>
+
+        <button class="btn primary mb-4 mt-4" id="saveBtn">Save</button>
+        <button class="btn primary mb-4 mt-4" id="clearBtn">Clear</button>
+        <button class="btn primary mb-4 mt-4 bg-danger text-white" id="clearAllBtn">Remove Last Entry</button>
+        
+
+        <hr>
+        <ul class=" list-group list-group-flush" id="ul"></ul>
+        
+    </div>
+       
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="/assets/background.js"></script>
+</body>
+</html>
