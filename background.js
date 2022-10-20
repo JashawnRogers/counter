@@ -44,9 +44,9 @@ window.onload = () => {
         archiveAmount.innerHTML = Number(localStorage.archiveTotal);
         totalCompleted.innerHTML = Number(localStorage.tCompleted);
     }
-
 }
 
+// ATTEMPTING TO CREATE GENERAL FUNCTIONS TO INCREMENT AND DECREMENT EACH VALUE
 // const add = (total, complete, totalText, completeText) => {
 //     if (total == localStorage.foundtotal) {
 //         if (typeof(Storage) !== "undefined"){
@@ -80,24 +80,29 @@ deleteBtn.addEventListener('click', (e) => {
 
 saveBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    localStorage.saveDate = currentDate;
     var saveInfo = document.createElement('li');
-    saveInfo.innerHTML = ` ${currentDate} Found Total: ${Number(localStorage.foundTotal)} | Not Found Total: ${Number(localStorage.notFoundTotal)} | Archive Total: ${Number(localStorage.archiveTotal)} | Total Completed: ${Number(localStorage.tCompleted)} ` ;
+    saveInfo.innerHTML = ` ${localStorage.saveDate} Found Total: ${Number(localStorage.foundTotal)} | Not Found Total: ${Number(localStorage.notFoundTotal)} | Archive Total: ${Number(localStorage.archiveTotal)} | Total Completed: ${Number(localStorage.tCompleted)} ` ;
     saveInfo.classList.add('list-group-item');
     ul.appendChild(saveInfo);
-    
-
+    return saveInfo;
 })
 
 clearBtn.addEventListener('click', () => {
-    localStorage.clear();
-    foundAmount.innerHTML = 0;
-    notFoundAmount.innerHTML = 0;
-    archiveAmount.innerHTML = 0;
-    totalCompleted.innerHTML = 0;
-})
+    localStorage.foundTotal = 0;
+    localStorage.notFoundTotal = 0;
+    localStorage.archiveTotal = 0;
+    localStorage.tCompleted = 0;
+
+    foundAmount.innerHTML = Number(localStorage.foundTotal);
+    notFoundAmount.innerHTML = Number(localStorage.notFoundTotal);
+    archiveAmount.innerHTML = Number(localStorage.archiveTotal);
+    totalCompleted.innerHTML = Number(localStorage.tCompleted);
+});
+
 foundPlusBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    if (typeof(Storage) !== "undefined"){
+    if (typeof(Storage) !== "undefined" || typeof(Storage) === 'undefined'){
         if (localStorage.foundTotal){
             localStorage.foundTotal = Number(localStorage.foundTotal) + 1;
             localStorage.tCompleted = Number(localStorage.tCompleted) + 1;
