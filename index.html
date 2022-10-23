@@ -9,33 +9,33 @@
 </head>
 <body>
 
-    <div class="container text-center">
+    <div class="container text-center mt-4">
 
         <div class="row text-center align-items-start">
             <div class="col mt-2">
                 <p class="h6 text-center">Found</p>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center" id="foundGroup">
                     <button class="btn primary" id="foundMinusBtn">-</button>
-                    <p class="user-select-none text-center fs-3 mb-0" id="foundAmount">0</p>
-                    <button class="btn primary" id="foundPlusBtn">+</button>
+                    <input type="text" value= 0 class="form-control text-center fs-3 mb-0" id="foundAmount">
+                    <button class="btn primary plusBtn" id="foundPlusBtn">+</button>
                 </div>
             </div>
 
             <div class="col mt-2">
                 <p class="h6 text-center">Not Found</p>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center" id="notFoundGroup">
                     <button class="btn primary" id="notFoundMinusBtn">-</button>
-                    <p class="user-select-none text-center fs-3 mb-0" id="notFoundAmount">0</p>
-                    <button class="btn primary" id="notFoundPlusBtn" >+</button>
+                    <input type="text" value= 0 class="form-control text-center fs-3 mb-0" id="notFoundAmount">
+                    <button class="btn primary plusBtn" id="notFoundPlusBtn" >+</button>
                 </div>
             </div>
 
             <div class="col mt-2">
                 <p class="h6 text-center">Archive</p>
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center" id="archiveGroup">
                     <button class="btn primary" id="archiveMinusBtn">-</button>
-                    <p class="user-select-none text-center fs-3 mb-0" id="archiveAmount">0</p>
-                    <button class="btn primary" id="archivePlusBtn">+</button>
+                    <input type="text" value= 0 class="form-control text-center fs-3 mb-0" id="archiveAmount">
+                    <button class="btn primary plusBtn" id="archivePlusBtn">+</button>
                 </div>
             </div>
 
