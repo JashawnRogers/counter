@@ -22,32 +22,32 @@ let archiveAmount = document.getElementById('archiveAmount');
 
 // SAVE DATE
 let currentDate = moment().format("MMMM Do, YYYY");
+localStorage.setItem('saveDate', currentDate);
+
+let savedData = [];
+localStorage.setItem('savedData', JSON.stringify(savedData));
 
 // LOAD LOCAL STORAGE VALUES IF AVAILABLE
-window.onload = () => {
-    if (isNaN(foundAmount)){
-        foundAmount.innerHTML = 0;
-        localStorage.foundTotal = 0;
+window.addEventListener('load', () => {
+    foundAmount.value = localStorage.getItem('foundTotal');
+    notFoundAmount.value = localStorage.getItem('notFoundTotal');
+    archiveAmount.value = localStorage.getItem('archiveTotal');
+    totalCompleted.innerHTML = localStorage.getItem('tCompleted');
 
-    } if (isNaN(notFoundAmount)) {
-        notFoundAmount.innerHTML = 0;
-        localStorage.notFoundTotal = 0;
+    console.log(localStorage.getItem('savedData').length)
+// APPEND LI ITEMS TO PAGE IF APPLICABLE *NOT WORKING YET*
+    // for (let i = 0; i < localStorage.getItem('savedData').length; i++){
+    //     if(localStorage.key(i).indexOf('savedData') !== -1){
+    //         let item = document.createElement('li');
+    //         item.innerHTML = JSON.parse(localStorage.getItem(localStorage.key(i)));
+    //         item.classList.add('list-group-item');
+    //         ul.appendChild(item);
+    //     } else {
+    //         return;
+    //     }
+    // }
 
-    } if (isNaN(archiveAmount)) {
-        archiveAmount.innerHTML = 0;
-        localStorage.archiveTotal = 0;
-
-    } if (isNaN(totalCompleted)) {
-        totalCompleted.innerHTML = 0;
-        localStorage.tCompleted = 0;
-    } else {
-        foundAmount.value = Number(localStorage.foundTotal);
-        notFoundAmount.value = Number(localStorage.notFoundTotal);
-        archiveAmount.value = Number(localStorage.archiveTotal);
-        totalCompleted.innerHTML = Number(localStorage.tCompleted);
-    }
-}
-
+});
 
 // DELETE LAST ENTRY
 deleteBtn.addEventListener('click', (e) => {
@@ -57,14 +57,14 @@ deleteBtn.addEventListener('click', (e) => {
 // SVAE BUTTON
 saveBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    localStorage.saveDate = currentDate;
     let saveInfo = document.createElement('li');
-    saveInfo.innerHTML = ` ${localStorage.saveDate} Found Total: ${Number(localStorage.foundTotal)} | Not Found Total: ${Number(localStorage.notFoundTotal)} | Archive Total: ${Number(localStorage.archiveTotal)} | Total Completed: ${Number(localStorage.tCompleted)} ` ;
     saveInfo.classList.add('list-group-item');
+    saveInfo.innerHTML = ` ${localStorage.getItem('saveDate')} Found Total: ${Number(localStorage.foundTotal)} | Not Found Total: ${Number(localStorage.notFoundTotal)} | Archive Total: ${Number(localStorage.archiveTotal)} | Total Completed: ${Number(localStorage.tCompleted)} `;
+    savedData.push(saveInfo.innerHTML);
     ul.appendChild(saveInfo);
-    return saveInfo;
+    localStorage.setItem('savedData', JSON.stringify(savedData));
+    // return saveInfo;
 })
-
 
 // CLEAR BUTTON 
 clearBtn.addEventListener('click', () => {
@@ -72,6 +72,7 @@ clearBtn.addEventListener('click', () => {
     localStorage.notFoundTotal = 0;
     localStorage.archiveTotal = 0;
     localStorage.tCompleted = 0;
+    localStorage.setItem('savedData', JSON.stringify([]));
 
     foundAmount.value = Number(localStorage.foundTotal);
     notFoundAmount.value = Number(localStorage.notFoundTotal);
@@ -123,10 +124,15 @@ foundAmount.addEventListener('change', () => {
 // EVENTS FOR CLICK FUNCTIONALITY
 foundGroup.addEventListener('click', (e) => {
     if (e.target === foundPlusBtn){
-        localStorage.foundTotal = Number(localStorage.foundTotal) + 1;
-        localStorage.tCompleted = Number(localStorage.tCompleted) + 1;
-        foundAmount.value = localStorage.foundTotal;
-        totalCompleted.innerHTML = localStorage.tCompleted;
+        let foundPlacehold = Number(localStorage.getItem('foundTotal')) + 1;
+        let totalPlacehold = Number(localStorage.getItem('tCompleted')) + 1;
+
+        localStorage.setItem('foundTotal', foundPlacehold);
+        localStorage.setItem('tCompleted', totalPlacehold);
+        // localStorage.foundTotal = Number(localStorage.foundTotal) + 1;
+        // localStorage.tCompleted = Number(localStorage.tCompleted) + 1;
+        foundAmount.value = localStorage.getItem('foundTotal');
+        totalCompleted.innerHTML = localStorage.getItem('tCompleted');
     } else if (e.target === foundMinusBtn) {
         localStorage.foundTotal = Number(localStorage.foundTotal) - 1;
         localStorage.tCompleted = Number(localStorage.tCompleted) - 1;
