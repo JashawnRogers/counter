@@ -24,8 +24,10 @@ let archiveAmount = document.getElementById('archiveAmount');
 let currentDate = moment().format("MMMM Do, YYYY");
 localStorage.setItem('saveDate', currentDate);
 
+
 let savedData = [];
-localStorage.setItem('savedData', JSON.stringify(savedData));
+const parsedData = JSON.parse(localStorage.getItem('savedData'));
+// localStorage.setItem('savedData', JSON.stringify(savedData));
 
 // LOAD LOCAL STORAGE VALUES IF AVAILABLE
 window.addEventListener('load', () => {
@@ -33,33 +35,33 @@ window.addEventListener('load', () => {
     notFoundAmount.value = localStorage.getItem('notFoundTotal');
     archiveAmount.value = localStorage.getItem('archiveTotal');
     totalCompleted.innerHTML = localStorage.getItem('tCompleted');
+    console.log(parsedData)
 
-    console.log(localStorage.getItem('savedData').length)
 // APPEND LI ITEMS TO PAGE IF APPLICABLE *NOT WORKING YET*
-    // for (let i = 0; i < localStorage.getItem('savedData').length; i++){
-    //     if(localStorage.key(i).indexOf('savedData') !== -1){
-    //         let item = document.createElement('li');
-    //         item.innerHTML = JSON.parse(localStorage.getItem(localStorage.key(i)));
-    //         item.classList.add('list-group-item');
-    //         ul.appendChild(item);
-    //     } else {
-    //         return;
-    //     }
-    // }
-
+    if(Array.isArray(parsedData) && parsedData.length){
+        // let parsedData =  JSON.parse(localStorage.getItem('savedData'))
+        parsedData.forEach(entry => {
+            let savedEntry = document.createElement('li');
+            savedEntry.classList.add('list-group-item');
+            savedEntry.innerHTML = entry;
+            ul.appendChild(savedEntry);
+        });
+    } else return;
 });
 
 // DELETE LAST ENTRY
-deleteBtn.addEventListener('click', (e) => {
+deleteBtn.addEventListener('click', () => {
     ul.removeChild(ul.lastElementChild);
 });
 
 // SVAE BUTTON
 saveBtn.addEventListener('click', (e) => {
     e.preventDefault();
+    let existingEntries = JSON.parse(localStorage.getItem('savedData'));
+    if (existingEntries == null) existingEntries = [];
     let saveInfo = document.createElement('li');
     saveInfo.classList.add('list-group-item');
-    saveInfo.innerHTML = ` ${localStorage.getItem('saveDate')} Found Total: ${Number(localStorage.foundTotal)} | Not Found Total: ${Number(localStorage.notFoundTotal)} | Archive Total: ${Number(localStorage.archiveTotal)} | Total Completed: ${Number(localStorage.tCompleted)} `;
+    saveInfo.innerHTML = `${localStorage.getItem('saveDate')} Found Total: ${Number(localStorage.foundTotal)} | Not Found Total: ${Number(localStorage.notFoundTotal)} | Archive Total: ${Number(localStorage.archiveTotal)} | Total Completed: ${Number(localStorage.tCompleted)} `;
     savedData.push(saveInfo.innerHTML);
     ul.appendChild(saveInfo);
     localStorage.setItem('savedData', JSON.stringify(savedData));
@@ -72,7 +74,8 @@ clearBtn.addEventListener('click', () => {
     localStorage.notFoundTotal = 0;
     localStorage.archiveTotal = 0;
     localStorage.tCompleted = 0;
-    localStorage.setItem('savedData', JSON.stringify([]));
+    ul.innerHTML = '';
+    localStorage.setItem('savedData', JSON.stringify(savedData));
 
     foundAmount.value = Number(localStorage.foundTotal);
     notFoundAmount.value = Number(localStorage.notFoundTotal);
