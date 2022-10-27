@@ -8,7 +8,8 @@ let archiveMinusBtn = document.getElementById('archiveMinusBtn');
 let clearBtn = document.getElementById('clearBtn');
 let totalCompleted = document.getElementById('totalCompleted');
 let ul = document.getElementById('ul');
-let deleteBtn = document.getElementById('clearAllBtn');
+let deleteBtn = document.getElementById('clearLastBtn');
+let clearAllEntries = document.getElementById('clearAllBtn');
 
 // COUNTER GROUPS
 const foundGroup = document.getElementById('foundGroup');
@@ -27,7 +28,6 @@ localStorage.setItem('saveDate', currentDate);
 
 let savedData = [];
 const parsedData = JSON.parse(localStorage.getItem('savedData'));
-// localStorage.setItem('savedData', JSON.stringify(savedData));
 
 // LOAD LOCAL STORAGE VALUES IF AVAILABLE
 window.addEventListener('load', () => {
@@ -39,7 +39,6 @@ window.addEventListener('load', () => {
 
 // APPEND LI ITEMS TO PAGE IF APPLICABLE *NOT WORKING YET*
     if(Array.isArray(parsedData) && parsedData.length){
-        // let parsedData =  JSON.parse(localStorage.getItem('savedData'))
         parsedData.forEach(entry => {
             let savedEntry = document.createElement('li');
             savedEntry.classList.add('list-group-item');
@@ -47,6 +46,12 @@ window.addEventListener('load', () => {
             ul.appendChild(savedEntry);
         });
     } else return;
+});
+
+// DELETE ALL ENTRIES
+clearAllEntries.addEventListener('click', () => {
+    ul.innerHTML = '';
+    localStorage.setItem('savedData', JSON.stringify(savedData));
 });
 
 // DELETE LAST ENTRY
@@ -65,17 +70,14 @@ saveBtn.addEventListener('click', (e) => {
     savedData.push(saveInfo.innerHTML);
     ul.appendChild(saveInfo);
     localStorage.setItem('savedData', JSON.stringify(savedData));
-    // return saveInfo;
 })
 
-// CLEAR BUTTON 
+// RESET COUNTER 
 clearBtn.addEventListener('click', () => {
     localStorage.foundTotal = 0;
     localStorage.notFoundTotal = 0;
     localStorage.archiveTotal = 0;
     localStorage.tCompleted = 0;
-    ul.innerHTML = '';
-    localStorage.setItem('savedData', JSON.stringify(savedData));
 
     foundAmount.value = Number(localStorage.foundTotal);
     notFoundAmount.value = Number(localStorage.notFoundTotal);
