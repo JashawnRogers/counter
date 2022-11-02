@@ -3,7 +3,7 @@
 
 This project was created as a tool to help manage daily completed volume for the research team.
 
-![](counter.webm)
+![](counter-demo.mp4)
 
 ## Tech
 Javascript & Bootstrap
