@@ -3,7 +3,8 @@
 
 This project was created as a tool to help manage daily completed volume for the research team.
 
-![Demo](counter-demo.mp4)
+![link to deployed application](https://jashawnrogers.github.io/counter/)
+![](counter-demo.mp4)
 
 ## Tech
 Javascript & Bootstrap
